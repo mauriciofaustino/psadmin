@@ -21,8 +21,5 @@
     "react-router": "^0.13.3",
     "reactify": "^1.1.1",
     "vinyl-source-stream": "^1.1.0"
-  },
-  "devDependencies": {
-    "jest": "^21.1.0"
   }
 }
