@@ -14,22 +14,18 @@ var ManageAuthorPage = React.createClass({
 
     statics: {
         willTransitionFrom: function(transition, component) {
-            if(component.state.dirty && !confirm('Leave without saving?')) {
+            if (component.state.dirty && !confirm('Leave without saving?')) {
                 transition.abort();
             }
         }
     },
 
     getInitialState: function() {
-      return {
-          author: {
-              id: '',
-              firstName: '',
-              lastName: ''
-          },
-          errors: {},
-          dirty: false
-      };
+        return {
+            author: { id: '', firstName: '', lastName: '' },
+            errors: {},
+            dirty: false
+        };
     },
 
     componentWillMount: function() {

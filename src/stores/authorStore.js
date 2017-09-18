@@ -32,7 +32,7 @@ var AuthorStore = assign({}, EventEmitter.prototype, {
 });
 
 Dispatcher.register(function(action) {
-    switch (action.actionType) {
+    switch(action.actionType) {
         case ActionTypes.INITIALIZE:
             _authors = action.initialData.authors;
             AuthorStore.emitChange();
@@ -54,7 +54,7 @@ Dispatcher.register(function(action) {
             AuthorStore.emitChange();
             break;
         default:
-            //no op
+        // no op
     }
 });
 
