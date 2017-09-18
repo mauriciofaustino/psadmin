@@ -13,7 +13,7 @@ var ManageAuthorPage = React.createClass({
 
     statics: {
         willTransitionFrom: function(transition, component) {
-            if(component.state.durty && !confirm('Leave without saving?')) {
+            if(component.state.dirty && !confirm('Leave without saving?')) {
                 transition.abort();
             }
         }
@@ -27,15 +27,21 @@ var ManageAuthorPage = React.createClass({
               lastName: ''
           },
           errors: {},
-          durty: false
+          dirty: false
       };
     },
 
+    componentWillMount: function() {
+
+    },
+
     setAuthorState: function(event) {
-        this.setState({durty: true});
+      this.setState({dirty: true});
+
       var field = event.target.name;
       var value = event.target.value;
       this.state.author[field] = value;
+
       return this.setState({author: this.state.author});
     },
 
@@ -65,7 +71,7 @@ var ManageAuthorPage = React.createClass({
         }
 
         AuthorApi.saveAuthor(this.state.author);
-        this.setState({durty: false});
+        this.setState({dirty: false});
         Toastr.success('Author saved.');
         this.transitionTo('authors');
     },
