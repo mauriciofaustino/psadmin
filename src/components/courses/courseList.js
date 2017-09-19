@@ -1,16 +1,28 @@
 "use strict";
 
 var React = require('react');
+var CourseActions = require('../../actions/courseActions');
+var toastr = require('toastr');
 
 var CourseList = React.createClass({
     propTypes: {
         courses: React.PropTypes.array.isRequired
     },
+
+    deleteCourse: function(id, event) {
+        event.preventDefault();
+        CourseActions.deleteCourse(id);
+        toastr.success('Course Deleted');
+    },
+
     render: function() {
         var createCourseRow = function(course) {
             return (
                 <tr key={course.id}>
-                    <td><a href={course.watchHref}>Watch</a></td>
+                    <td>
+                        <a href={course.watchHref}>Watch</a>
+                        <a href="#" onClick={this.deleteCourse.bind(this, course.id)}>Delete</a>
+                    </td>
                     <td>{course.id}</td>
                     <td>{course.title}</td>
                     <td>{course.author.name}</td>
