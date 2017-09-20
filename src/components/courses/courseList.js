@@ -20,7 +20,7 @@ var CourseList = React.createClass({
             return (
                 <tr key={course.id}>
                     <td>
-                        <a href={course.watchHref}>Watch</a>
+                        <a href={course.watchHref}>Watch</a> &nbsp;
                         <a href="#" onClick={this.deleteCourse.bind(this, course.id)}>Delete</a>
                     </td>
                     <td>{course.id}</td>
