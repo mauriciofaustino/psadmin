@@ -13,6 +13,15 @@ var CourseActions = {
         });
     },
 
+    updateCourse: function(course) {
+        course = CourseApi.saveCourse(course);
+
+        Dispatcher.dispatch({
+            actionType: ActionTypes.UPDATE_COURSE,
+            course: course
+        });
+    },
+
     deleteCourse: function(id) {
         CourseApi.deleteCourse(id);
 

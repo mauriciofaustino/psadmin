@@ -1,8 +1,10 @@
 "use strict";
 
 var React = require('react');
-var CourseActions = require('../../actions/courseActions');
+var Router = require('react-router');
+var Link = Router.Link;
 var toastr = require('toastr');
+var CourseActions = require('../../actions/courseActions');
 
 var CourseList = React.createClass({
     propTypes: {
@@ -24,7 +26,7 @@ var CourseList = React.createClass({
                         <a href="#" onClick={this.deleteCourse.bind(this, course.id)}>Delete</a>
                     </td>
                     <td>{course.id}</td>
-                    <td>{course.title}</td>
+                    <td><Link to="manageCourse" params={{id: course.id}}>{course.title}</Link></td>
                     <td>{course.author.name}</td>
                     <td>{course.length}</td>
                     <td>{course.category}</td>

@@ -8,6 +8,10 @@ var CourseActions = require('../../actions/courseActions');
 var CourseStore = require('../../stores/courseStore');
 var CourseForm = require('./courseForm');
 
+var _getCourseState = function(id) {
+    return CourseStore.getCourseById(id);
+};
+
 var _getAuthorFormattedForDropdown = function(author) {
     return {
         value: author.id,
@@ -44,6 +48,7 @@ var ManageCoursePage = React.createClass({
     },
 
     componentWillMount: function() {
+        CourseStore.addChangeListener(this._onChange);
 
         //need to transform author list into an array of objects
         //for use in the author dropdown.
@@ -52,8 +57,12 @@ var ManageCoursePage = React.createClass({
         var id = this.props.params.id; // from the path `/course/:id`
 
         if (id) {
-            this.setState({course: CourseStore.getCourseById(id)});
+            this.setState({course: _getCourseState(id)});
         }
+    },
+
+    componentWillUnmount: function() {
+        CourseStore.removeChangeListener(this._onChange);
     },
 
     setCourseState: function(event) {
@@ -105,7 +114,7 @@ var ManageCoursePage = React.createClass({
             return;
         }
         if(this.state.course.id) {
-            // updateCourse
+            CourseActions.updateCourse(this.state.course);
         } else {
             console.log(this.state.course);
             CourseActions.createCourse(this.state.course);
@@ -113,6 +122,10 @@ var ManageCoursePage = React.createClass({
         this.setState({dirty: false});
         Toastr.success('Course saved.');
         this.transitionTo('courses');
+    },
+
+    _onChange: function() {
+        this.setState(_getCourseState());
     },
 
    render: function() {
