@@ -45,6 +45,7 @@ var CourseForm = React.createClass({
                     name="author"
                     label="Author"
                     options={this.props.allAuthors}
+                    defaultOption="Select Author"
                     value={this.props.course.author.id}
                     error={this.props.errors.author}
                     onChange={this.props.onChange} />

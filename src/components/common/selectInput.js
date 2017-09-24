@@ -31,6 +31,7 @@ var Input = React.createClass({
                            className="form-control"
                            ref={this.props.name}
                            onChange={this.props.onChange}>
+                        <option value="">{this.props.defaultOption}</option>
                         {this.props.options.map(createOption, this)}
                     </select>
                     <div className="input">{this.props.error}</div>

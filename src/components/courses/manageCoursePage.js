@@ -15,6 +15,13 @@ var _getAuthorFormattedForDropdown = function(author) {
     };
 };
 
+var _getAuthorFormattedForSave = function(author) {
+    return {
+        id: author.id,
+        name: author.firstName + ' ' + author.lastName
+    };
+};
+
 var ManageCoursePage = React.createClass({
     mixins: [
         Router.Navigation,
@@ -56,7 +63,7 @@ var ManageCoursePage = React.createClass({
         var value = event.target.value;
 
         if (field === 'author') {
-            value = AuthorStore.getAuthorById(value);
+            value = _getAuthorFormattedForSave(AuthorStore.getAuthorById(value));
         }
 
         this.state.course[field] = value;
@@ -74,6 +81,11 @@ var ManageCoursePage = React.createClass({
 
         if (this.state.course.category.length < 3) {
             this.state.errors.category = 'Course title must be at lease 3 characters.';
+            formIsValid = false;
+        }
+
+        if (!this.state.course.author) {
+            this.state.errors.author = 'Select an author.';
             formIsValid = false;
         }
 
@@ -95,6 +107,7 @@ var ManageCoursePage = React.createClass({
         if(this.state.course.id) {
             // updateCourse
         } else {
+            console.log(this.state.course);
             CourseActions.createCourse(this.state.course);
         }
         this.setState({dirty: false});
