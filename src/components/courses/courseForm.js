@@ -9,7 +9,7 @@ var CourseForm = React.createClass({
         course: React.PropTypes.object.isRequired,
         onSave: React.PropTypes.func.isRequired,
         onChange: React.PropTypes.func.isRequired,
-        authorOptions: React.PropTypes.array.isRequired,
+        allAuthors: React.PropTypes.array.isRequired,
         errors: React.PropTypes.object
     },
 
@@ -44,8 +44,8 @@ var CourseForm = React.createClass({
                 <Select
                     name="author"
                     label="Author"
-                    options={this.props.authorOptions}
-                    value={this.props.course.author}
+                    options={this.props.allAuthors}
+                    value={this.props.course.author.id}
                     error={this.props.errors.author}
                     onChange={this.props.onChange} />
 

@@ -5,11 +5,20 @@ var Router = require('react-router');
 var Toastr = require('toastr');
 var AuthorStore = require('../../stores/authorStore');
 var CourseActions = require('../../actions/courseActions');
+var CourseStore = require('../../stores/courseStore');
 var CourseForm = require('./courseForm');
+
+var _getAuthorFormattedForDropdown = function(author) {
+    return {
+        value: author.id,
+        text: author.firstName + ' ' + author.lastName
+    };
+};
 
 var ManageCoursePage = React.createClass({
     mixins: [
-        Router.Navigation
+        Router.Navigation,
+        Router.State
     ],
 
     getInitialState: function() {
@@ -19,13 +28,25 @@ var ManageCoursePage = React.createClass({
                 title: '',
                 length: '',
                 category: '',
-                author: {},
+                author: '',
                 watchHref: ''
             },
-            authorOptions: AuthorStore.getAllAuthors(),
             errors: {},
             dirty: false
         };
+    },
+
+    componentWillMount: function() {
+
+        //need to transform author list into an array of objects
+        //for use in the author dropdown.
+        this.setState({allAuthors: AuthorStore.getAllAuthors().map(_getAuthorFormattedForDropdown) });
+
+        var id = this.props.params.id; // from the path `/course/:id`
+
+        if (id) {
+            this.setState({course: CourseStore.getCourseById(id)});
+        }
     },
 
     setCourseState: function(event) {
@@ -33,8 +54,12 @@ var ManageCoursePage = React.createClass({
 
         var field = event.target.name;
         var value = event.target.value;
-        this.state.course[field] = value;
 
+        if (field === 'author') {
+            value = AuthorStore.getAuthorById(value);
+        }
+
+        this.state.course[field] = value;
         return this.setState({course: this.state.course});
     },
 
@@ -80,7 +105,7 @@ var ManageCoursePage = React.createClass({
    render: function() {
        return (
             <CourseForm
-                authorOptions={this.state.authorOptions}
+                allAuthors={this.state.allAuthors}
                 course={this.state.course}
                 onChange={this.setCourseState}
                 errors={this.state.errors}

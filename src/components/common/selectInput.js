@@ -8,7 +8,7 @@ var Input = React.createClass({
         label: React.PropTypes.string.isRequired,
         onChange: React.PropTypes.func.isRequired,
         options: React.PropTypes.array.isRequired,
-        value: React.PropTypes.object,
+        value: React.PropTypes.string,
         error: React.PropTypes.string
     },
 
@@ -19,7 +19,7 @@ var Input = React.createClass({
         }
 
         var createOption = function(option) {
-            return (<option value={option} key={option.id}>{option.firstName} {option.lastName}</option>);
+            return (<option value={option.value} key={option.value}>{option.text}</option>);
         };
 
         return (
