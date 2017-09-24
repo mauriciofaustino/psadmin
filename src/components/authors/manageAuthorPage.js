@@ -36,13 +36,13 @@ var ManageAuthorPage = React.createClass({
     },
 
     setAuthorState: function(event) {
-      this.setState({dirty: true});
+        this.setState({dirty: true});
 
-      var field = event.target.name;
-      var value = event.target.value;
-      this.state.author[field] = value;
+        var field = event.target.name;
+        var value = event.target.value;
+        this.state.author[field] = value;
 
-      return this.setState({author: this.state.author});
+        return this.setState({author: this.state.author});
     },
 
     authorFormIsValid: function() {

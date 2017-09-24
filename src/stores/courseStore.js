@@ -37,6 +37,10 @@ Dispatcher.register(function(action) {
             _courses = action.initialData.courses;
             CourseStore.emitChange();
             break;
+        case ActionTypes.CREATE_COURSE:
+            _courses.push(action.course);
+            CourseStore.emitChange();
+            break;
         case ActionTypes.DELETE_COURSE:
             _.remove(_courses, function(course) {
                 return action.id === course.id;

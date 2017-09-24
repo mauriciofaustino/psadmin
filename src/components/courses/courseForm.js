@@ -21,32 +21,32 @@ var CourseForm = React.createClass({
                     name="title"
                     label="Title"
                     value={this.props.course.title}
-                    error={this.props.course.title}
+                    error={this.props.errors.title}
                     onChange={this.props.onChange} />
                 <Input
                     name="watchHref"
                     label="Watch URL"
                     value={this.props.course.watchHref}
-                    error={this.props.course.watchHref}
+                    error={this.props.errors.watchHref}
                     onChange={this.props.onChange} />
                 <Input
                     name="length"
                     label="Length"
                     value={this.props.course.length}
-                    error={this.props.course.length}
+                    error={this.props.errors.length}
                     onChange={this.props.onChange} />
                 <Input
                     name="category"
                     label="Category"
                     value={this.props.course.category}
-                    error={this.props.course.category}
+                    error={this.props.errors.category}
                     onChange={this.props.onChange} />
                 <Select
                     name="author"
                     label="Author"
                     options={this.props.authorOptions}
                     value={this.props.course.author}
-                    error={this.props.course.author}
+                    error={this.props.errors.author}
                     onChange={this.props.onChange} />
 
                 <input type="submit" value="Save" className="btn btn-default" onClick={this.props.onSave} />
